@@ -73,9 +73,22 @@ function purchaseQuestions() {
                     console.log("* Sorry, it looks like there isn't enough in stock. Please come back later *");
                     console.log("------------------------------------------------------------------------");
                     start();
-    
-                }
+                } else { 
+                    console.log("------------------------------------------------------------------------");
+                    console.log("*                   Thank you for placing your order                   *");
+                    console.log("------------------------------------------------------------------------");
+                    console.log("You've selected:");
+                    console.log("----------------");
+                    console.log("Item: " + res[i].product_name);
+                    console.log("Quantity: " + answers.QTY);
+                    console.log("----------------");
+                    console.log("Total: " + res[i].price * answers.QTY + "  $ ");
+                    console.log("========================================================================");
 
+                    var newStock = (res[i].stock_quantity - answers.QTY);
+                    var purchaseId = (answers.ID);
+                    confirmPrompt(newStock, purchaseId);
+                }
             } 
         });
     });
