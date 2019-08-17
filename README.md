@@ -18,4 +18,4 @@ Managers application has four options, to view products for sale, view products 
 
 ### Demo 
 
-!(Bamazon Demo)[https://media.giphy.com/media/VeSRlPqGdmkHi4us3w/giphy.gif]
+![Bamazon Demo](https://media.giphy.com/media/VeSRlPqGdmkHi4us3w/giphy.gif)
