@@ -43,7 +43,7 @@ function start () {
 	});
 }; 
 
-function purchaseQuestions(){
+function purchaseQuestions() {
 	inquirer.prompt([
 	{
 		name: "ID",
@@ -57,4 +57,15 @@ function purchaseQuestions(){
 		message:"How many items do you wish to purchase?",
 		filter:Number
     }
+    ]).then(function (response) { 
+        connection.query("SELECT * FROM products WHERE item_id=?", response.ID, function(err, res) { 
+            if (res[0] == undefined) {
+                console.log("------------------------------------------------------------------------");
+                console.log("*        Sorry there are no items with  '" +  response.ID + "'         *");
+                console.log("*                   Please type in a valid item ID                     *");
+                console.log("------------------------------------------------------------------------");
+                purchaseQuestions();
+            }
+        });
+    });
 }
