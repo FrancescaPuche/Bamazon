@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: "localhost", 
     port: 3306, 
     user: "root", 
-    password: "Fvp4077961", 
+    password: "password", 
     database: "bamazon_db" 
 }); 
 
@@ -17,9 +17,9 @@ connection.connect(function(err) {
 }); 
 
 function start () { 
-    console.log('------------------------------------------------------------------------');
-	console.log('                           Welcome To Bamazon                           ');
-	console.log('------------------------------------------------------------------------');
+    console.log("------------------------------------------------------------------------");
+	console.log("                           Welcome To Bamazon                           ");
+	console.log("------------------------------------------------------------------------");
 
     var query = "Select * FROM products";
 	connection.query(query, function(err, res){
@@ -68,7 +68,7 @@ function purchaseQuestions() {
             }
 
             for (var i = 0; i < res.length; i++) {
-                if (answers.QTY > res[i].stock_quantity) {
+                if (response.QTY > res[i].stock_quantity) {
                     console.log("------------------------------------------------------------------------");
                     console.log("* Sorry, it looks like there isn't enough in stock. Please come back later *");
                     console.log("------------------------------------------------------------------------");
@@ -80,13 +80,13 @@ function purchaseQuestions() {
                     console.log("You've selected:");
                     console.log("----------------");
                     console.log("Item: " + res[i].product_name);
-                    console.log("Quantity: " + answers.QTY);
+                    console.log("Quantity: " + response.QTY);
                     console.log("----------------");
-                    console.log("Total: " + res[i].price * answers.QTY + "  $ ");
+                    console.log("Total: " + res[i].price * response.QTY + "  $ ");
                     console.log("========================================================================");
 
-                    var newStock = (res[i].stock_quantity - answers.QTY);
-                    var purchaseId = (answers.ID);
+                    var newStock = (res[i].stock_quantity - response.QTY);
+                    var purchaseId = (response.ID);
                     confirmPurchase(newStock, purchaseId);
                 }
             } 
@@ -94,7 +94,7 @@ function purchaseQuestions() {
     });
 }
 
-function confirmPurchase(newStock, purhcaseId) { 
+function confirmPurchase(newStock, purchaseId) { 
     inquirer.prompt([{
         type: "confirm", 
         name: "confirmTrans", 
@@ -112,10 +112,32 @@ function confirmPurchase(newStock, purhcaseId) {
             console.log("------------------------------------------------------------------------");
             console.log("*               Your Transaction is complete. Thank you!               *");
             console.log("------------------------------------------------------------------------");
+            anotherPurchase();
         } else { 
             console.log("------------------------------------------------------------------------");
             console.log("*         Your Transaction was not conpleted. Maybe next time!         *");
             console.log("------------------------------------------------------------------------");
+            anotherPurchase(); 
         }
     });
 }
+
+function anotherPurchase(){
+	
+	inquirer.prompt([{
+	  type: "confirm",
+	  name: "reply",
+	  message: "Would you like to purchase another item?",
+	  default: true
+	
+	}]).then(function(ans){
+	  
+		if(ans.reply){
+		start();
+	  
+	} else{
+		console.log("Thank you come back soon!");
+		process.exit();
+	  }
+	});
+  }
