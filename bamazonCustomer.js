@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: "localhost", 
     port: 3306, 
     user: "root", 
-    password: "password", 
+    password: "Fvp4077961", 
     database: "bamazon_db" 
 }); 
 
