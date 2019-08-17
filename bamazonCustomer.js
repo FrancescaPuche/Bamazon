@@ -1,11 +1,12 @@
 const mysql = require("mysql"); 
 const inquirer = require("inquirer");
+const table = require("cli-table");
 
 const connection = mysql.createConnection({ 
     host: "localhost", 
     port: 3306, 
     user: "root", 
-    password: "", 
+    password: "Fvp4077961", 
     database: "bamazon_db" 
 }); 
 
