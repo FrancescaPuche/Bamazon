@@ -87,9 +87,35 @@ function purchaseQuestions() {
 
                     var newStock = (res[i].stock_quantity - answers.QTY);
                     var purchaseId = (answers.ID);
-                    confirmPrompt(newStock, purchaseId);
+                    confirmPurchase(newStock, purchaseId);
                 }
             } 
         });
+    });
+}
+
+function confirmPurchase(newStock, purhcaseId) { 
+    inquirer.prompt([{
+        type: "confirm", 
+        name: "confirmTrans", 
+        message: "Can you please verify that all information in the purchase is correct", 
+        default: true
+    }]).then(function(userConfirm) { 
+        if (userConfirm.confirmTrans === true) { 
+            connection.query("UPDATE products SET ? WHERE ?", [{
+                stock_quantity: newStock
+            }, 
+            { 
+                item_id: purchaseId
+            }], function (err, res) {}); 
+
+            console.log("------------------------------------------------------------------------");
+            console.log("*               Your Transaction is complete. Thank you!               *");
+            console.log("------------------------------------------------------------------------");
+        } else { 
+            console.log("------------------------------------------------------------------------");
+            console.log("*         Your Transaction was not conpleted. Maybe next time!         *");
+            console.log("------------------------------------------------------------------------");
+        }
     });
 }
