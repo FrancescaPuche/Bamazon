@@ -66,6 +66,17 @@ function purchaseQuestions() {
                 console.log("------------------------------------------------------------------------");
                 purchaseQuestions();
             }
+
+            for (var i = 0; i < res.length; i++) {
+                if (answers.QTY > res[i].stock_quantity) {
+                    console.log("------------------------------------------------------------------------");
+                    console.log("* Sorry, it looks like there isn't enough in stock. Please come back later *");
+                    console.log("------------------------------------------------------------------------");
+                    start();
+    
+                }
+
+            } 
         });
     });
 }
